@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>バチェロレッテ4 完全ガイド</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Serif+JP:wght@300;400;500&family=Jost:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:#c8727a; --rose-l:#f5e4e6; --rose-d:#8b3a41;
+  --gold:#c9a84c; --gold-l:#f5e9c8; --gold-d:#7a5a10;
+  --cream:#faf6f0; --dark:#1a0f0f; --mid:#4a2e2e; --muted:#8a6a6a;
+  --white:#fff; --border:rgba(200,114,122,0.18);
+  --up:#3a9e64; --down:#d94f5c;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Serif JP',serif;background:var(--cream);color:var(--dark);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#1a0f0f 0%,#3d1a1f 45%,#5c2a2a 100%);padding:40px 20px 32px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% -10%,rgba(201,168,76,.18) 0%,transparent 65%);}
+.hero-eye{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:4px;color:var(--gold);font-weight:200;margin-bottom:10px;}
+.hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,7vw,58px);font-weight:300;color:#fff;line-height:1.1;}
+.hero-title em{font-style:italic;color:var(--gold);}
+.hero-sub{font-family:'Jost',sans-serif;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:2px;margin-top:8px;}
+.hero-divider{width:50px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:20px auto 0;}
+
+/* ── TOP NAV (3 pages) ── */
+.top-nav{display:flex;background:#0f0707;border-bottom:1px solid rgba(201,168,76,.15);}
+.top-nav-item{flex:1;padding:16px 8px;text-align:center;cursor:pointer;border-bottom:3px solid transparent;transition:all .25s;}
+.top-nav-item .nav-icon{font-size:18px;display:block;margin-bottom:3px;}
+.top-nav-item .nav-label{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);display:block;}
+.top-nav-item.active .nav-label{color:var(--gold);}
+.top-nav-item.active{border-bottom-color:var(--gold);}
+
+/* ── PAGE ── */
+.page{display:none;} .page.active{display:block;animation:fadeIn .3s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.main{max-width:820px;margin:0 auto;padding:20px;}
+
+/* ── INNER TABS ── */
+.inner-tabs{display:flex;background:var(--dark);overflow-x:auto;scrollbar-width:none;}
+.inner-tabs::-webkit-scrollbar{display:none;}
+.i-tab{flex:0 0 auto;padding:11px 16px;font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:2px solid transparent;transition:all .25s;white-space:nowrap;}
+.i-tab:hover{color:rgba(255,255,255,.8);}
+.i-tab.active{color:var(--rose);border-bottom-color:var(--rose);}
+.i-section{display:none;} .i-section.active{display:block;}
+
+/* ── COMMON COMPONENTS ── */
+.card{background:var(--white);border:1px solid var(--border);border-radius:2px;margin-bottom:16px;overflow:hidden;}
+.card-hdr{padding:14px 18px 10px;border-bottom:1px solid var(--border);display:flex;align-items:baseline;gap:10px;}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--dark);}
+.card-sub{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1.5px;color:var(--muted);}
+.card-body{padding:16px 18px;}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:16px 0;}
+.note{font-family:'Jost',sans-serif;font-size:11px;color:var(--muted);font-style:italic;margin-top:8px;}
+.tag{padding:4px 12px;background:var(--rose-l);color:var(--rose-d);font-family:'Jost',sans-serif;font-size:10px;letter-spacing:1px;border-radius:20px;}
+.tag-gold{background:var(--gold-l);color:var(--gold-d);}
+.quote-block{border-left:3px solid var(--gold);padding:12px 16px;background:linear-gradient(135deg,rgba(201,168,76,.05),rgba(201,168,76,.08));margin:10px 0;font-style:italic;font-size:13px;line-height:1.8;color:var(--mid);}
+.info-block{padding:12px 14px;background:rgba(255,255,255,.7);border-left:2px solid var(--rose);margin-bottom:10px;}
+.ib-title{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.ib-body{font-size:13px;line-height:1.7;color:var(--mid);}
+.kv-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.kv-item .kv-l{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:2px;}
+.kv-item .kv-v{font-size:13px;color:var(--mid);font-weight:500;}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:10px 22px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;font-weight:400;cursor:pointer;border-radius:2px;border:none;transition:all .25s;}
+.btn-primary{background:linear-gradient(135deg,var(--rose-d),var(--rose));color:#fff;}
+.btn-primary:hover{opacity:.88;transform:translateY(-1px);}
+.btn-secondary{background:transparent;border:1px solid var(--border);color:var(--mid);}
+.btn-secondary:hover{border-color:var(--rose);color:var(--rose);}
+.btn-gold{background:linear-gradient(135deg,var(--gold-d),var(--gold));color:#fff;}
+.btn-sm{padding:6px 14px;font-size:10px;}
+.form-row{margin-bottom:14px;}
+.form-label{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:6px;display:block;}
+.form-input{width:100%;padding:10px 12px;border:1px solid var(--border);background:var(--cream);font-family:'Noto Serif JP',serif;font-size:14px;color:var(--dark);border-radius:2px;outline:none;transition:border-color .2s;}
+.form-input:focus{border-color:var(--rose);}
+
+/* ── PAGE 1: GUIDE ── */
+.heroine-card{background:linear-gradient(135deg,#fdf0f0,#fff8f0);border:1px solid var(--border);border-radius:2px;padding:24px;margin-bottom:20px;position:relative;}
+.heroine-card::before{content:'♔';position:absolute;top:14px;right:18px;font-size:22px;color:var(--gold-l);}
+.h-name{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;margin-bottom:2px;}
+.h-name-en{font-family:'Jost',sans-serif;font-size:10px;letter-spacing:3px;color:var(--muted);font-weight:200;margin-bottom:14px;}
+.h-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.man-card{background:var(--white);border:1px solid var(--border);border-radius:2px;overflow:hidden;margin-bottom:8px;cursor:pointer;transition:all .25s;}
+.man-card:hover{border-color:var(--rose);}
+.man-hdr{display:flex;align-items:flex-start;padding:13px 14px;gap:10px;}
+.man-num{width:30px;height:30px;background:var(--dark);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.man-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:400;color:var(--dark);}
+.man-meta{font-family:'Jost',sans-serif;font-size:10px;color:var(--muted);letter-spacing:.5px;margin-top:2px;}
+.man-catch{font-size:11px;color:var(--rose);font-style:italic;margin-top:3px;}
+.man-detail{display:none;padding:0 14px 14px;border-top:1px solid var(--border);margin:0 14px;}
+.man-detail.open{display:block;padding-top:12px;}
+.man-detail-text{font-size:12px;line-height:1.8;color:var(--mid);}
+.compat-row{display:flex;align-items:center;gap:8px;margin:5px 0;}
+.compat-lbl{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:1px;color:var(--muted);width:80px;flex-shrink:0;}
+.compat-bar{flex:1;height:4px;background:var(--rose-l);border-radius:2px;overflow:hidden;}
+.compat-fill{height:100%;background:linear-gradient(90deg,var(--rose-l),var(--rose));border-radius:2px;}
+.compat-val{font-family:'Jost',sans-serif;font-size:10px;font-weight:500;color:var(--rose-d);width:26px;text-align:right;}
+
+/* ── PAGE 2: BETTING ── */
+.phase-bar{background:rgba(200,114,122,.07);border-bottom:1px solid var(--border);padding:10px 20px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.phase-label{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);}
+.phase-btn{padding:4px 13px;font-family:'Jost',sans-serif;font-size:10px;font-weight:300;letter-spacing:1px;border:1px solid var(--border);color:var(--muted);background:transparent;cursor:pointer;border-radius:20px;transition:all .2s;}
+.phase-btn:hover{border-color:var(--rose);color:var(--rose);}
+.phase-btn.active{background:var(--rose);border-color:var(--rose);color:#fff;}
+.player-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 11px;background:var(--rose-l);border-radius:20px;font-family:'Jost',sans-serif;font-size:11px;color:var(--rose-d);margin:3px;}
+.player-chip .del{cursor:pointer;color:var(--rose);font-size:13px;line-height:1;}
+.bet-man-row{display:flex;align-items:center;gap:8px;padding:9px 11px;border:1px solid var(--border);border-radius:2px;cursor:pointer;transition:all .2s;background:var(--white);margin-bottom:6px;}
+.bet-man-row:hover{border-color:var(--rose);}
+.bet-man-row.selected{border-color:var(--rose);background:#fdf0f0;}
+.bet-man-row.disabled{opacity:.35;pointer-events:none;}
+.bet-check{width:16px;height:16px;border:1px solid var(--border);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:9px;}
+.bet-man-row.selected .bet-check{background:var(--rose);border-color:var(--rose);color:#fff;}
+.coins-rem{padding:9px 13px;background:var(--gold-l);border-left:3px solid var(--gold);font-family:'Jost',sans-serif;font-size:12px;color:var(--gold-d);margin-bottom:12px;}
+.coins-rem strong{font-size:15px;font-family:'Cormorant Garamond',serif;}
+.slider-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.slider-name{font-size:13px;color:var(--dark);}
+.slider-val{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--rose-d);}
+.slider-val span{font-family:'Jost',sans-serif;font-size:9px;color:var(--muted);margin-left:2px;}
+input[type=range]{width:100%;-webkit-appearance:none;height:3px;background:var(--rose-l);border-radius:2px;outline:none;margin-bottom:12px;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--rose);cursor:pointer;}
+.rank-row{display:grid;grid-template-columns:30px 1fr 72px 60px 60px;gap:6px;align-items:center;padding:9px 14px;border-bottom:1px solid rgba(200,114,122,.06);}
+.rank-row:last-child{border-bottom:none;}
+.rank-row.hdr{background:#faf6f0;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;padding:7px 14px;}
+.rank-num{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold);text-align:center;}
+.hist-row{display:grid;grid-template-columns:80px 1fr 1fr 1fr 68px;gap:5px;padding:8px 12px;border-bottom:1px solid rgba(200,114,122,.06);font-size:11px;align-items:center;}
+.hist-row.hdr{background:#faf6f0;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;}
+.result-badge{display:inline-block;padding:2px 8px;border-radius:20px;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.5px;}
+.rb-win{background:#d4f5e4;color:var(--up);}
+.rb-lose{background:#f5d4d6;color:var(--down);}
+.rb-pending{background:#f0f0f0;color:#999;}
+.bonus-hd{background:linear-gradient(135deg,#1a0f0f,#3d1a1f);border-radius:2px;padding:18px;margin-bottom:14px;}
+.bonus-title{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);margin-bottom:5px;}
+.bonus-desc{font-family:'Jost',sans-serif;font-size:11px;color:rgba(255,255,255,.6);line-height:1.7;letter-spacing:.5px;}
+.bonus-men{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;}
+.bonus-btn{padding:14px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.7);background:transparent;cursor:pointer;font-family:'Noto Serif JP',serif;font-size:13px;border-radius:2px;transition:all .25s;text-align:center;}
+.bonus-btn:hover{border-color:var(--gold);color:var(--gold);}
+.bonus-btn.selected{background:var(--gold);border-color:var(--gold);color:var(--dark);font-weight:500;}
+
+/* ── PAGE 3: ODDS ── */
+.ep-bar{background:var(--dark);padding:10px 20px;display:flex;align-items:center;gap:8px;overflow-x:auto;scrollbar-width:none;}
+.ep-bar::-webkit-scrollbar{display:none;}
+.ep-label{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.4);flex-shrink:0;}
+.ep-btn{flex-shrink:0;padding:4px 13px;font-family:'Jost',sans-serif;font-size:10px;font-weight:300;letter-spacing:1px;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);background:transparent;cursor:pointer;border-radius:20px;transition:all .2s;}
+.ep-btn:hover{border-color:var(--rose);color:var(--rose);}
+.ep-btn.active{background:var(--rose);border-color:var(--rose);color:#fff;}
+.update-bar{padding:12px 20px;background:rgba(200,114,122,.06);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.update-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;background:linear-gradient(135deg,var(--rose-d),var(--rose));color:#fff;border:none;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:2px;cursor:pointer;border-radius:2px;transition:all .25s;}
+.update-btn:disabled{opacity:.5;cursor:not-allowed;}
+.update-btn .spin{display:none;animation:spin 1s linear infinite;}
+.update-btn.loading .spin{display:inline;}
+.update-btn.loading .static{display:none;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.update-status{font-family:'Jost',sans-serif;font-size:11px;color:var(--muted);flex:1;}
+.ai-log{display:none;margin:0 20px 14px;padding:12px 14px;background:#0f1a10;border:1px solid rgba(76,175,122,.3);font-family:'Jost',sans-serif;font-size:10px;line-height:1.9;color:rgba(76,255,130,.8);max-height:140px;overflow-y:auto;}
+.ai-log.visible{display:block;}
+.log-line::before{content:'> ';color:rgba(76,255,130,.4);}
+.insight-box{background:linear-gradient(135deg,#1a0f0f,#3d1a1f);border-radius:2px;padding:18px;margin-bottom:16px;}
+.insight-title{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.insight-text{font-family:'Noto Serif JP',serif;font-size:13px;line-height:1.9;color:rgba(255,255,255,.75);}
+.insight-text strong{color:var(--gold);}
+.graph-legend{display:flex;flex-wrap:wrap;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border);}
+.leg-item{display:flex;align-items:center;gap:4px;font-family:'Jost',sans-serif;font-size:10px;color:var(--mid);cursor:pointer;opacity:.75;transition:opacity .2s;}
+.leg-item:hover{opacity:1;}
+.leg-item.hidden{opacity:.22;}
+.leg-dot{width:7px;height:7px;border-radius:50%;}
+.graph-area{padding:14px 6px 6px;}
+canvas#oddsChart{width:100%!important;height:250px!important;}
+.odds-row{display:grid;grid-template-columns:30px 1fr 64px 60px 44px 72px;gap:6px;align-items:center;padding:10px 14px;border-bottom:1px solid rgba(200,114,122,.06);transition:background .2s;cursor:pointer;}
+.odds-row:hover{background:rgba(200,114,122,.04);}
+.odds-row:last-child{border-bottom:none;}
+.odds-row.hdr{background:#faf6f0;font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;cursor:default;padding:7px 14px;}
+.odds-row.hdr:hover{background:#faf6f0;}
+.col-rank{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--gold);text-align:center;}
+.col-name-main{font-size:13px;color:var(--dark);}
+.col-name-sub{font-family:'Jost',sans-serif;font-size:9px;color:var(--muted);letter-spacing:.5px;margin-top:1px;}
+.col-odds-v{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--rose-d);font-weight:600;text-align:right;}
+.col-prev-v{font-family:'Jost',sans-serif;font-size:11px;color:var(--muted);text-align:right;}
+.col-delta{font-family:'Jost',sans-serif;font-size:10px;font-weight:500;text-align:center;}
+.delta-up{color:var(--up);}
+.delta-dn{color:var(--down);}
+.col-tier{font-family:'Jost',sans-serif;font-size:9px;letter-spacing:.8px;padding:3px 7px;border-radius:20px;text-align:center;}
+.tier-champion{background:var(--gold-l);color:var(--gold-d);}
+.tier-contender{background:var(--rose-l);color:var(--rose-d);}
+.tier-dark{background:#e8f0ff;color:#2a4a8a;}
+.tier-watch{background:#e8fff0;color:#1a7a40;}
+.tier-elim{background:#f0f0f0;color:#888;}
+.odds-detail-drawer{display:none;padding:10px 14px;font-size:12px;line-height:1.8;color:var(--mid);border-top:1px solid var(--border);background:#fdf8f8;}
+.odds-detail-drawer.open{display:block;}
+.manual-odds-grid{display:grid;gap:6px;}
+.mo-row{display:flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid var(--border);border-radius:2px;font-size:12px;}
+.mo-name{flex:1;font-size:12px;}
+.mo-input{width:70px;padding:4px 8px;border:1px solid var(--border);background:var(--cream);font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--rose-d);border-radius:2px;text-align:right;outline:none;}
+.mo-input:focus{border-color:var(--rose);}
+.mo-unit{font-family:'Jost',sans-serif;font-size:10px;color:var(--muted);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:22px;right:18px;background:var(--dark);color:#fff;padding:11px 16px;font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;border-radius:2px;border-left:3px solid var(--gold);opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none;z-index:999;max-width:260px;}
+.toast.show{opacity:1;transform:none;}
+
+@media(max-width:500px){
+  .odds-row{grid-template-columns:26px 1fr 54px 46px 38px 62px;gap:4px;padding:9px 10px;}
+  .rank-row{grid-template-columns:26px 1fr 60px 52px 50px;}
+  .hist-row{grid-template-columns:70px 1fr 1fr 1fr 56px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════ HERO -->
+<div class="hero">
+  <div class="hero-eye">BACHELORETTE JAPAN S4 · 2026 · AMAZON PRIME VIDEO</div>
+  <div class="hero-title">バチェロレッテ4<br><em>完全ガイド</em></div>
+  <div class="hero-sub">ガイド · 賭けトラッカー · オッズ</div>
+  <div class="hero-divider"></div>
+</div>
+
+<!-- ══════════════════════════════════════════ TOP NAV -->
+<div class="top-nav">
+  <div class="top-nav-item active" onclick="showPage('guide',this)">
+    <span class="nav-icon">📖</span><span class="nav-label">ガイド</span>
+  </div>
+  <div class="top-nav-item" onclick="showPage('bet',this)">
+    <span class="nav-icon">🪙</span><span class="nav-label">賭けフォーム</span>
+  </div>
+  <div class="top-nav-item" onclick="showPage('odds',this)">
+    <span class="nav-icon">📈</span><span class="nav-label">オッズ</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ PAGE 1: GUIDE -->
+<div class="page active" id="page-guide">
+  <!-- inner tabs -->
+  <div class="inner-tabs">
+    <div class="i-tab active" onclick="showInner('guide','heroine',this)">👑 ヒロイン</div>
+    <div class="i-tab" onclick="showInner('guide','men',this)">💼 参加者14名</div>
+  </div>
+
+  <!-- HEROINE -->
+  <div class="i-section active" id="guide-heroine">
+    <div class="main">
+      <div class="heroine-card">
+        <div class="h-name">平松 里菜</div>
+        <div class="h-name-en">RINA HIRAMATSU · 4TH BACHELORETTE</div>
+        <div class="h-tags">
+          <span class="tag tag-gold">シリーズ史上最年少</span>
+          <span class="tag">26歳</span>
+          <span class="tag">モデル / インフルエンサー</span>
+          <span class="tag">トリリンガル</span>
+        </div>
+        <div class="kv-grid">
+          <div class="kv-item"><span class="kv-l">年齢</span><span class="kv-v">26歳</span></div>
+          <div class="kv-item"><span class="kv-l">仕事</span><span class="kv-v">モデル・インフルエンサー</span></div>
+          <div class="kv-item"><span class="kv-l">言語</span><span class="kv-v">日英・その他 (3カ国語)</span></div>
+          <div class="kv-item"><span class="kv-l">舞台</span><span class="kv-v">タイ</span></div>
+          <div class="kv-item"><span class="kv-l">交際経験</span><span class="kv-v">正式にはゼロ</span></div>
+          <div class="kv-item"><span class="kv-l">海外歴</span><span class="kv-v">7〜20歳（SG→NY→UK）</span></div>
+        </div>
+        <div class="info-block"><div class="ib-title">生い立ち</div><div class="ib-body">7歳からシンガポール→NY→イギリスと転居。小〜大学をすべて海外で過ごし、21歳で帰国。約6年間日本で活動中。</div></div>
+        <div class="info-block"><div class="ib-title">現在の活動</div><div class="ib-body">モデル・インフルエンサー。活動名「平松リナ」から本名「平松里菜」に変更しバチェロレッテ参加を発表。凛とした目元が印象的。</div></div>
+        <a href="https://youtu.be/d7tcP84YjGg" target="_blank" rel="noopener"
+           style="display:block;border-radius:2px;overflow:hidden;position:relative;text-decoration:none;margin-top:8px;">
+          <img src="https://img.youtube.com/vi/d7tcP84YjGg/hqdefault.jpg" alt="平松里菜 インタビュー"
+               style="width:100%;height:160px;object-fit:cover;object-position:top;display:block;background:#111;">
+          <div style="position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;">
+            <div style="width:48px;height:48px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+              <div style="width:0;height:0;border-top:10px solid transparent;border-bottom:10px solid transparent;border-left:18px solid #fff;margin-left:4px;"></div>
+            </div>
+          </div>
+          <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 12px;background:linear-gradient(transparent,rgba(0,0,0,.75));font-family:Jost,sans-serif;font-size:10px;letter-spacing:1.5px;color:#fff;">
+            ▶ ヒロイン発表インタビューを見る（YouTube公式）
+          </div>
+        </a>
+      </div>
+
+      <div class="card-title" style="font-family:Cormorant Garamond,serif;font-weight:300;font-size:22px;margin-bottom:12px;">参加の動機</div>
+      <div class="quote-block">「恋愛として一人の人と真剣に向き合うことをしたいという気持ちが強かったですし、こういう経験は人生で一度しかないことだと思い、挑戦したいと決めました」</div>
+      <div class="quote-block">「今まで恋愛と真剣に向き合ったことがなかった。将来は結婚したいし、子どもも欲しい。この特別な環境で素直に自分をさらけ出したいと感じた」</div>
+      <div class="quote-block">「長い海外生活でつらい経験も乗り越えてきたので、自分の決断には自信があります。真剣に恋愛に向き合ってみたかった」</div>
+      <div class="divider"></div>
+      <div class="card-title" style="font-family:Cormorant Garamond,serif;font-weight:300;font-size:22px;margin-bottom:12px;">恋愛観・価値観</div>
+      <div class="info-block"><div class="ib-title">理想の相手</div><div class="ib-body">「心が広く、他人をジャッジしない人」。過去に惹かれた人は仕事や趣味に熱意を持つ人が多く、年上が多かった。</div></div>
+      <div class="info-block"><div class="ib-title">ローズの基準</div><div class="ib-body">「直感」。「私の直感は裏切らない」と断言。自分から告白したことは一度もなく、相手のアプローチから始まるタイプ。</div></div>
+      <div class="info-block"><div class="ib-title">結婚に必要な2条件</div><div class="ib-body">①「相手の幸せを自分の幸せと思えるか」<br>②「どんなにつらいことがあっても一緒にいたいと思えるか」</div></div>
+      <div class="info-block"><div class="ib-title">愛情表現</div><div class="ib-body">「言葉より行動・スキンシップ重視」。ただし相手からのスキンシップも望む。クールに見られがちだが、旅では壁を壊す覚悟で臨んだ。</div></div>
+    </div>
+  </div>
+
+  <!-- MEN -->
+  <div class="i-section" id="guide-men">
+    <div class="main">
+      <div id="menListGuide"></div>
+    </div>
+  </div>
+</div><!-- /page-guide -->
+
+<!-- ══════════════════════════════════════════ PAGE 2: BETTING -->
+<div class="page" id="page-bet">
+  <!-- phase bar -->
+  <div class="phase-bar">
+    <span class="phase-label">ROUND</span>
+    <button class="phase-btn active" onclick="setPhase(0,this)">R1 配信前</button>
+    <button class="phase-btn" onclick="setPhase(1,this)">R2 EP1-4後</button>
+    <button class="phase-btn" onclick="setPhase(2,this)">R3 EP5-7後</button>
+    <button class="phase-btn" onclick="setPhase(3,this)">🎯 ボーナス</button>
+  </div>
+  <!-- inner tabs -->
+  <div class="inner-tabs">
+    <div class="i-tab active" onclick="showInner('bet','players',this)">👥 参加者</div>
+    <div class="i-tab" onclick="showInner('bet','betform',this)">🪙 投票</div>
+    <div class="i-tab" onclick="showInner('bet','ranking',this)">🏆 ランキング</div>
+    <div class="i-tab" onclick="showInner('bet','history',this)">📋 履歴</div>
+    <div class="i-tab" onclick="showInner('bet','bonus',this)">🎯 ボーナス</div>
+    <div class="i-tab" onclick="showInner('bet','admin',this)">⚙️ 管理</div>
+  </div>
+
+  <!-- PLAYERS -->
+  <div class="i-section active" id="bet-players">
+    <div class="main">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">参加者を登録</div><div class="card-sub">名前入力→Enter or 追加</div></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label class="form-label">参加者名</label>
+            <div style="display:flex;gap:8px;">
+              <input class="form-input" id="playerInput" placeholder="例：Teppei" onkeydown="if(event.key==='Enter')addPlayer()">
+              <button class="btn btn-primary" onclick="addPlayer()">追加</button>
+            </div>
+          </div>
+          <div id="playerChips" style="margin-top:8px;"></div>
+        </div>
+      </div>
+      <!-- ── RULES ── -->
+      <div style="background:linear-gradient(135deg,#1a0f0f,#3d1a1f);border-radius:2px;overflow:hidden;margin-bottom:16px;">
+        <div style="padding:16px 20px 12px;border-bottom:1px solid rgba(201,168,76,.15);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#fff;">賭けの仕組み</div>
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.8);margin-top:2px;">RULES &amp; STRUCTURE</div>
+        </div>
+
+        <!-- 概要 -->
+        <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.06);">
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:10px;">📌 基本ルール</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="padding:10px 12px;background:rgba(255,255,255,.05);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:4px;">初期コイン</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;line-height:1;">1,000</div>
+              <div style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.4);">全員一律</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(255,255,255,.05);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:4px;">投票方式</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;line-height:1;">3名</div>
+              <div style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.4);">自由配分型</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(255,255,255,.05);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:4px;">ラウンド数</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;line-height:1;">3 + 🎯</div>
+              <div style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.4);">通常3回＋ボーナス</div>
+            </div>
+            <div style="padding:10px 12px;background:rgba(255,255,255,.05);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:1.5px;color:rgba(255,255,255,.4);margin-bottom:4px;">配当計算</div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;line-height:1;">残存</div>
+              <div style="font-family:'Jost',sans-serif;font-size:9px;color:rgba(255,255,255,.4);">残存人数で倍率が変わる</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ラウンド構成 -->
+        <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.06);">
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">🗓 ラウンド構成</div>
+          <div style="display:grid;gap:8px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="flex-shrink:0;padding:3px 10px;background:var(--rose-d);border-radius:20px;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;color:#fff;margin-top:2px;">R1</div>
+              <div>
+                <div style="font-family:'Jost',sans-serif;font-size:11px;color:rgba(255,255,255,.8);letter-spacing:.5px;">配信前に投票</div>
+                <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;margin-top:2px;">14名の中から残ると思う3名を予想。1000コインを自由に配分して投票する。</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="flex-shrink:0;padding:3px 10px;background:var(--rose-d);border-radius:20px;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;color:#fff;margin-top:2px;">R2</div>
+              <div>
+                <div style="font-family:'Jost',sans-serif;font-size:11px;color:rgba(255,255,255,.8);letter-spacing:.5px;">EP1–4後に投票</div>
+                <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;margin-top:2px;">脱落者を除いた残存者の中から3名を予想。前ラウンドの獲得コインで投票する。</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="flex-shrink:0;padding:3px 10px;background:var(--rose-d);border-radius:20px;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;color:#fff;margin-top:2px;">R3</div>
+              <div>
+                <div style="font-family:'Jost',sans-serif;font-size:11px;color:rgba(255,255,255,.8);letter-spacing:.5px;">EP5–7後に投票</div>
+                <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;margin-top:2px;">最終3名以内に残る男性を予想。ここでの読み違いが順位を大きく左右する。</div>
+              </div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <div style="flex-shrink:0;padding:3px 10px;background:var(--gold-d);border-radius:20px;font-family:'Jost',sans-serif;font-size:10px;font-weight:500;color:#fff;margin-top:2px;">🎯</div>
+              <div>
+                <div style="font-family:'Jost',sans-serif;font-size:11px;color:var(--gold);letter-spacing:.5px;">ボーナスステージ（最終回前）</div>
+                <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.45);line-height:1.7;margin-top:2px;">ファイナル2名が確定後、全員に<strong style="color:var(--gold);">+500コイン</strong>を追加配布。1名に全額を賭けて、当てれば<strong style="color:var(--gold);">×3倍</strong>獲得。</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 投票の仕方 -->
+        <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.06);">
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">🪙 投票の仕方（自由配分型）</div>
+          <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:rgba(255,255,255,.65);line-height:1.9;">
+            各ラウンド、自分が持っているコインを<strong style="color:#fff;">3名に自由な比率で分配</strong>して投票する。<br>
+            例えば 1000コインを「500 / 300 / 200」に配分してもよいし、「600 / 200 / 200」でも「333 / 333 / 334」でも自由。<br>
+            <span style="font-family:'Jost',sans-serif;font-size:11px;color:rgba(255,255,255,.35);">※ コインを集中投資するか分散するかが戦略のカギ</span>
+          </div>
+        </div>
+
+        <!-- 配当計算 -->
+        <div style="padding:16px 20px;border-bottom:1px solid rgba(255,255,255,.06);">
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">💰 配当計算（残存人数に応じた倍率）</div>
+          <div style="display:grid;gap:6px;margin-bottom:10px;">
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(58,158,100,.12);border-left:2px solid var(--up);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.5);flex:1;">予想した3名が<strong style="color:#fff;">全員残存</strong></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--up);font-weight:600;">×1.5</div>
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);width:80px;text-align:right;">100→150コイン</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(58,158,100,.18);border-left:2px solid var(--up);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.5);flex:1;">予想した3名のうち<strong style="color:#fff;">2名が残存</strong></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--up);font-weight:600;">×2.0</div>
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);width:80px;text-align:right;">100→200コイン</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(201,168,76,.12);border-left:2px solid var(--gold);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.5);flex:1;">予想した3名のうち<strong style="color:#fff;">1名のみ残存</strong></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold);font-weight:600;">×3.0</div>
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);width:80px;text-align:right;">100→300コイン</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:rgba(217,79,92,.1);border-left:2px solid var(--down);border-radius:2px;">
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.5);flex:1;">予想した3名が<strong style="color:#fff;">全員脱落</strong></div>
+              <div style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--down);font-weight:600;">×0</div>
+              <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);width:80px;text-align:right;">没収</div>
+            </div>
+          </div>
+          <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.4);line-height:1.8;">
+            ※ 残存した人に賭けたコインにのみ倍率が適用される。例えば「500 / 300 / 200」で賭けて1名だけ残った場合、その1名に賭けた分だけが×3.0で返ってくる。
+          </div>
+        </div>
+
+        <!-- 例 -->
+        <div style="padding:16px 20px;">
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;">📖 計算例</div>
+          <div style="padding:12px 14px;background:rgba(255,255,255,.04);border-radius:2px;font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.6);line-height:2;">
+            1000コインを <strong style="color:#fff;">水越 500 / 植田 300 / ライモン 200</strong> で投票<br>
+            → EP1–4後、水越と植田が残存・ライモン脱落（2名残存）<br>
+            → 水越分：500 × 2.0 = <strong style="color:var(--up);">1,000コイン</strong><br>
+            → 植田分：300 × 2.0 = <strong style="color:var(--up);">600コイン</strong><br>
+            → ライモン分：脱落のため 0コイン<br>
+            → <strong style="color:#fff;">合計獲得：1,600コイン</strong>（+600コインの利益）
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- BET FORM -->
+  <div class="i-section" id="bet-betform">
+    <div class="main">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title" id="betRoundTitle">R1 投票フォーム</div><div class="card-sub">3名を選んでコインを配分</div></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label class="form-label">投票者</label>
+            <select class="form-input" id="betPlayerSel" onchange="refreshBetForm()">
+              <option value="">— 選択してください —</option>
+            </select>
+          </div>
+          <div id="betContent" style="display:none;">
+            <div class="divider"></div>
+            <p style="font-family:Jost,sans-serif;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">STEP 1 — 3名を選択</p>
+            <div id="betMenGrid"></div>
+            <div id="betSliderArea" style="display:none;">
+              <p style="font-family:Jost,sans-serif;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:8px;">STEP 2 — コインを配分</p>
+              <div class="coins-rem" id="coinsRem">残り: <strong id="coinsLeft">1000</strong> コイン</div>
+              <div id="betSliders"></div>
+              <button class="btn btn-primary" onclick="submitBet()">投票を確定する</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RANKING -->
+  <div class="i-section" id="bet-ranking">
+    <div class="main">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">コインランキング</div></div>
+        <div id="rankingBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="i-section" id="bet-history">
+    <div class="main">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">投票履歴</div></div>
+        <div class="hist-row hdr"><div>プレイヤー</div><div>1位予想</div><div>2位予想</div><div>3位予想</div><div>結果</div></div>
+        <div id="historyBody"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BONUS -->
+  <div class="i-section" id="bet-bonus">
+    <div class="main">
+      <div class="bonus-hd">
+        <div class="bonus-title">🎯 ボーナスステージ</div>
+        <div class="bonus-desc">ファイナル2名が確定！全員に+500コイン追加配布。<br>1名に全額賭けて、当てれば<strong style="color:var(--gold);">×3倍</strong>獲得。</div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">ボーナス投票</div></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label class="form-label">投票者</label>
+            <select class="form-input" id="bonusPlayerSel"></select>
+          </div>
+          <p style="font-family:Jost,sans-serif;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:10px;">優勝者を予想：</p>
+          <div class="bonus-men" id="bonusMenArea"></div>
+          <button class="btn btn-gold" onclick="submitBonus()">🎯 ボーナス投票を確定</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN -->
+  <div class="i-section" id="bet-admin">
+    <div class="main">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">ラウンド結果を入力</div><div class="card-sub">脱落者を選択→配当計算</div></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label class="form-label">対象ラウンド</label>
+            <select class="form-input" id="adminRoundSel">
+              <option value="0">R1（配信前）</option><option value="1">R2（EP1-4後）</option><option value="2">R3（EP5-7後）</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">脱落者を選択（複数可）</label>
+            <div id="adminElimGrid"></div>
+          </div>
+          <button class="btn btn-primary" onclick="calcResults()">配当を計算して反映</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">ボーナス結果</div></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label class="form-label">優勝者</label>
+            <select class="form-input" id="adminWinnerSel"><option value="">— 選択 —</option></select>
+          </div>
+          <button class="btn btn-gold" onclick="calcBonus()">ボーナス配当を計算</button>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">賭けデータ 保存 / 復元</div><div class="card-sub">オッズ更新前後に使用</div></div>
+        <div class="card-body">
+          <!-- EXPORT -->
+          <div style="margin-bottom:16px;">
+            <p style="font-family:Jost,sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">📤 STEP 1 — オッズ更新前に保存</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <button class="btn btn-primary btn-sm" onclick="exportBetFile()">JSONファイルをダウンロード</button>
+              <button class="btn btn-secondary btn-sm" onclick="exportBetClipboard()">クリップボードにコピー</button>
+            </div>
+            <p class="note" style="margin-top:6px;">参加者・コイン残高・投票履歴・脱落者情報をすべて含みます</p>
+          </div>
+          <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:16px;"></div>
+          <!-- IMPORT -->
+          <div style="margin-bottom:16px;">
+            <p style="font-family:Jost,sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">📥 STEP 2 — 新しいHTMLで賭けデータを復元</p>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+              <label class="btn btn-secondary btn-sm" style="cursor:pointer;">
+                JSONファイルを読み込む
+                <input type="file" id="importFileInput" accept=".json" style="display:none;" onchange="importBetFile(event)">
+              </label>
+            </div>
+            <div id="importPasteArea" style="margin-top:10px;">
+              <textarea id="importPasteInput" class="form-input" rows="3" placeholder="またはJSONテキストをここに貼り付け..." style="font-family:Jost,sans-serif;font-size:11px;resize:vertical;"></textarea>
+              <button class="btn btn-secondary btn-sm" style="margin-top:6px;" onclick="importBetPaste()">貼り付けから復元</button>
+            </div>
+            <div id="importResult" style="display:none;margin-top:8px;padding:10px 12px;border-radius:2px;font-family:Jost,sans-serif;font-size:11px;"></div>
+          </div>
+          <div style="height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin-bottom:16px;"></div>
+          <!-- RESET -->
+          <div>
+            <p style="font-family:Jost,sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">⚠️ 危険操作</p>
+            <button class="btn btn-secondary btn-sm" onclick="if(confirm('全賭けデータをリセットします。よろしいですか？'))resetAll()" style="border-color:var(--down);color:var(--down);">🗑 全リセット</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- /page-bet -->
+
+<!-- ══════════════════════════════════════════ PAGE 3: ODDS -->
+<div class="page" id="page-odds">
+  <div class="ep-bar">
+    <span class="ep-label">EP</span>
+    <button class="ep-btn active" onclick="selectEp(0,this)">配信前</button>
+    <button class="ep-btn" onclick="selectEp(1,this)">EP1–4</button>
+    <button class="ep-btn" onclick="selectEp(2,this)">EP5–7</button>
+    <button class="ep-btn" onclick="selectEp(3,this)">EP8–9</button>
+  </div>
+  <div class="update-bar">
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <div style="font-family:Jost,sans-serif;font-size:9px;letter-spacing:2px;color:var(--muted);">AI自動更新（claude.ai内では動作しません）</div>
+      <button class="update-btn" id="updateBtn" onclick="doUpdate()" disabled title="claude.ai外のブラウザで開くと動作します">
+        <span class="static">🔄</span><span class="spin">⟳</span>
+        <span id="updateBtnLabel">AI更新（外部ブラウザのみ）</span>
+      </button>
+    </div>
+    <div class="update-status" id="updateStatus">手動でオッズを入力するか、「更新して」とチャットで伝えてください</div>
+  </div>
+  <div class="ai-log" id="aiLog"></div>
+
+  <div class="main">
+    <!-- inner tabs -->
+    <div class="inner-tabs" style="margin:0 -20px 16px;padding:0 20px;background:transparent;border-bottom:1px solid var(--border);">
+      <div class="i-tab active" onclick="showInner('odds','graph',this)">📈 グラフ</div>
+      <div class="i-tab" onclick="showInner('odds','table',this)">📊 テーブル</div>
+      <div class="i-tab" onclick="showInner('odds','manual',this)">✏️ 手動更新</div>
+    </div>
+
+    <!-- GRAPH -->
+    <div class="i-section active" id="odds-graph">
+      <div class="insight-box">
+        <div class="insight-title">📊 分析サマリー</div>
+        <div class="insight-text" id="insightText">
+          配信前初期オッズ。里菜の恋愛観（<strong>年上好み・直感重視・グローバル感覚・信頼と安心感</strong>）ベースで算出。<br><br>
+          <strong>最有力：水越寛文（2.2倍）</strong>最年長33歳・外資系経営者。<strong>植田玲雄（2.8倍）</strong>パリコレ×グローバル感覚。<strong>伏兵：ニマークライモン（3.5倍）</strong>リトアニア出身。
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">オッズ変動グラフ</div><div class="card-sub">低いほど有力 · 名前タップで表示切替</div></div>
+        <div class="graph-legend" id="graphLegend"></div>
+        <div class="graph-area"><canvas id="oddsChart"></canvas></div>
+      </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="i-section" id="odds-table">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">現在のオッズ</div><div class="card-sub">行をタップで詳細</div></div>
+        <div class="odds-row hdr"><div></div><div>名前</div><div style="text-align:right">現在</div><div style="text-align:right">前回</div><div style="text-align:center">変動</div><div>状況</div></div>
+        <div id="oddsTableBody"></div>
+      </div>
+    </div>
+
+    <!-- MANUAL UPDATE -->
+    <div class="i-section" id="odds-manual">
+      <div class="card">
+        <div class="card-hdr"><div class="card-title">手動オッズ更新</div><div class="card-sub">各参加者のオッズを直接入力</div></div>
+        <div class="card-body">
+          <div class="form-row">
+            <label class="form-label">更新するエピソード</label>
+            <select class="form-input" id="manualEpSel">
+              <option value="0">配信前</option><option value="1">EP1–4</option><option value="2">EP5–7</option><option value="3">EP8–9</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label">脱落者（オッズを99に自動設定）</label>
+            <div id="manualElimGrid" style="display:grid;gap:4px;"></div>
+          </div>
+          <div class="divider"></div>
+          <p style="font-family:Jost,sans-serif;font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:10px;">個別オッズ入力（空欄は前回値を維持）</p>
+          <div class="manual-odds-grid" id="manualOddsGrid"></div>
+          <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;">
+            <button class="btn btn-primary" onclick="applyManualOdds()">更新を反映</button>
+            <button class="btn btn-secondary btn-sm" onclick="buildManualGrid()">リセット</button>
+          </div>
+        </div>
+      </div>
+      <p class="note" style="text-align:center;">※ チャットで「EP1-4の情報で更新して」と伝えると私が検索して新しいオッズ値をお知らせします</p>
+
+      <!-- ── UPDATE FLOW GUIDE ── -->
+      <div style="margin-top:8px;background:linear-gradient(135deg,#1a0f0f,#2a1515);border-radius:2px;overflow:hidden;">
+        <div style="padding:14px 18px 10px;border-bottom:1px solid rgba(201,168,76,.15);">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#fff;">オッズ更新フロー</div>
+          <div style="font-family:'Jost',sans-serif;font-size:9px;letter-spacing:2px;color:rgba(201,168,76,.8);margin-top:2px;">各エピソード後の手順</div>
+        </div>
+        <div style="padding:16px 18px;display:grid;gap:10px;">
+
+          <!-- STEP 1 -->
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="flex-shrink:0;width:26px;height:26px;background:var(--rose-d);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:#fff;">1</div>
+            <div>
+              <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:3px;">賭けデータを保存</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.65);line-height:1.7;">
+                🪙 賭けフォーム → ⚙️管理タブ →「JSONファイルをダウンロード」<br>
+                <span style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);">※ 新しいHTMLに切り替える前に必ず実行</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:rgba(255,255,255,.06);margin-left:38px;"></div>
+
+          <!-- STEP 2 -->
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="flex-shrink:0;width:26px;height:26px;background:var(--rose-d);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:#fff;">2</div>
+            <div>
+              <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:3px;">Claudeにオッズ更新を依頼</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.65);line-height:1.7;">
+                チャットで「EP◯–◯の情報でオッズ更新して」と伝える<br>
+                <span style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);">→ Claudeが検索して新しいオッズ入りHTMLをダウンロードさせてくれる</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:rgba(255,255,255,.06);margin-left:38px;"></div>
+
+          <!-- STEP 3 -->
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="flex-shrink:0;width:26px;height:26px;background:var(--rose-d);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:#fff;">3</div>
+            <div>
+              <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:3px;">新しいHTMLで賭けデータを復元</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.65);line-height:1.7;">
+                新HTMLを開く → 🪙 賭けフォーム → ⚙️管理タブ →「JSONファイルを読み込む」<br>
+                <span style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);">→ コイン残高・投票履歴・脱落者情報がすべて復元される</span>
+              </div>
+            </div>
+          </div>
+
+          <div style="height:1px;background:rgba(255,255,255,.06);margin-left:38px;"></div>
+
+          <!-- STEP 4 -->
+          <div style="display:flex;gap:12px;align-items:flex-start;">
+            <div style="flex-shrink:0;width:26px;height:26px;background:var(--gold-d);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Jost',sans-serif;font-size:11px;font-weight:600;color:#fff;">4</div>
+            <div>
+              <div style="font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;color:var(--gold);margin-bottom:3px;">次ラウンドの投票スタート</div>
+              <div style="font-family:'Noto Serif JP',serif;font-size:12px;color:rgba(255,255,255,.65);line-height:1.7;">
+                フェーズバーを次のラウンドに切り替えて投票受付<br>
+                <span style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.35);">→ ⚙️管理タブで脱落者を入力すると配当が自動計算される</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div style="padding:10px 18px 14px;border-top:1px solid rgba(255,255,255,.06);">
+          <div style="font-family:'Jost',sans-serif;font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.5px;line-height:1.8;">
+            ⚠️ HTMLを差し替えてもJSONをインポートすれば賭けデータは消えません<br>
+            💡 手動更新タブならHTMLを差し替えずにオッズだけ書き換えることも可能
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /page-odds -->
+
+<div class="toast" id="toast"></div>
+
+<!-- Chart.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+<script>
+// ══════════════════════════════════════════ SHARED DATA
+const INITIAL_COINS = 1000, BONUS_COINS = 500;
+const MULTIPLIERS = {3:1.5, 2:2.0, 1:3.0, 0:0};
+
+const MEN = [
+  {id:'mizukoshi',name:'水越 寛文',age:33,job:'経営者/外資IT',catch:'#フルスペック装備なオトコ',
+   youtube:'https://youtu.be/5AqzLlGq3VU',
+   detail:'最年長33歳・外資系経営者ダブルキャリア。里菜の「信頼と安心感」軸で最高スコア。年上好みの里菜に最も合致。',
+   compat:{global:75,values:88,appeal:80,trust:92,overall:85},
+   compatComment:'年上×安定×実績のトリプルアドバンテージ。里菜が旅で気づいた「安心感が大事」基準に最も合致。'},
+  {id:'ueda',name:'植田 玲雄',age:28,job:'パリコレモデル/元サッカー',catch:'#世界が認めた美男子',
+   youtube:'https://youtu.be/HBqsC2gy1Pw',
+   detail:'パリコレ出演・元プロサッカー選手。グローバル経験と体力・センスを兼ね備える。',
+   compat:{global:90,values:80,appeal:88,trust:75,overall:84},
+   compatComment:'グローバル経験が里菜と最大の共鳴ポイント。ただし「熱意を向けているもの」の一致度がカギ。'},
+  {id:'raimon',name:'ニマーク ライモン',age:26,job:'ITベンチャー代表',catch:'#ディスイズライモン',
+   youtube:'https://youtu.be/lTVBkLsYHYA',
+   detail:'リトアニア出身のITベンチャー代表。「ライモンのままで十分」という強烈な自己肯定感と個性が際立つ。',
+   compat:{global:95,values:70,appeal:85,trust:72,overall:80},
+   compatComment:'海外出身という最大の共通項。自然体アプローチがハマれば大化け候補。'},
+  {id:'osada',name:'長田 寛太',age:29,job:'会社経営者',catch:'#自分らしさを香らせるオトコ',
+   youtube:'https://youtu.be/TNqqkGkMBjY',
+   detail:'29歳の会社経営者。誠実さと全力投球が武器。里菜の「仕事に熱意ある人」基準に合致。',
+   compat:{global:65,values:80,appeal:76,trust:82,overall:76},
+   compatComment:'経営者としての熱意と誠実さが里菜基準にハマる。グローバル感覚では見劣りする。'},
+  {id:'tanaka',name:'田中 哲史',age:27,job:'オペラ歌手',catch:'#世界を旅するオペラ歌手',
+   youtube:'https://youtu.be/Oy4SYR4LuDQ',
+   detail:'バチェロレッテ史上初のオペラ歌手。世界各地のステージ経験と芸術的表現力が独自の存在感を生む。',
+   compat:{global:88,values:75,appeal:86,trust:70,overall:80},
+   compatComment:'世界を旅してきた経験が里菜との最大の共鳴ポイント。経済的安定面が弱点になりうる。'},
+  {id:'yamazaki',name:'山崎 至',age:32,job:'ゴルフ事業経営',catch:'#恋の風を読むゴルファー',
+   youtube:'https://youtu.be/uD0Zu62mz90',
+   detail:'32歳・ゴルフ事業経営者。「素直に自然体で向き合う」スタイル。年上で落ち着いた大人のアプローチが持ち味。',
+   compat:{global:58,values:82,appeal:74,trust:85,overall:76},
+   compatComment:'年上×自然体×経営者という安定感。誠実さで補える可能性。'},
+  {id:'shiratani',name:'白谷 琢磨',age:30,job:'彫刻家',catch:'#愛の輪郭を捉えたい彫刻家',
+   youtube:'https://youtu.be/T6eP5aj0b1U',
+   detail:'「愛の輪郭を捉えたい」という詩的コンセプトを持つ彫刻家。芸術的感性と独自の世界観が個性的。',
+   compat:{global:55,values:78,appeal:82,trust:68,overall:73},
+   compatComment:'芸術的感性という共通軸があるが、安定性の面では実業家系に劣る。'},
+  {id:'wada',name:'和田 叡',age:30,job:'外資系IT企業勤務',catch:'#登場、恋のムードメーカー',
+   youtube:'https://youtu.be/SoKab8oEAUM',
+   detail:'30歳・外資系IT。「本物にしか興味ない」という高い審美眼と知性で対等に渡り合える。',
+   compat:{global:68,values:78,appeal:76,trust:78,overall:75},
+   compatComment:'外資系・本物志向の軸が里菜のグローバル感覚と共鳴。水越と比較された際の見劣りがカギ。'},
+  {id:'sebawn',name:'セバウン玲央 ジュリアン',age:30,job:'コスメ開発/元テニスプロ',catch:'#僕と愛のラリーをしよう',
+   youtube:'https://youtu.be/vdeMcuh2krk',
+   detail:'元プロテニスプレーヤーからオーガニックコスメ開発者へ転身。対等な関係性重視のスタイル。',
+   compat:{global:65,values:76,appeal:80,trust:74,overall:74},
+   compatComment:'対等なラリーを重視するスタイルが里菜の自立心と共鳴するかも。'},
+  {id:'yoshimoto',name:'吉本ラバーニ 勇世歩',age:26,job:'モデル/クリエイター',catch:'#さあ、ロマンタサイズしよう',
+   youtube:'https://youtu.be/aKpZTdXoKc8',
+   detail:'モデル兼コンテンツクリエイター。インフルエンサーに近い感覚で里菜との共通語を持ちやすい。',
+   compat:{global:60,values:72,appeal:82,trust:66,overall:70},
+   compatComment:'モデル同士の感性はあるが友達止まりになりやすいリスクも。'},
+  {id:'anzai',name:'安齊 勇馬',age:26,job:'プロレスラー',catch:'#恋に臆病な最強レスラー',
+   youtube:'https://youtu.be/_QN8RrytGHqc',
+   detail:'「恋に臆病な最強レスラー」という逆説的コンセプト。屈強な外見と内なる繊細さのギャップが魅力。',
+   compat:{global:40,values:72,appeal:78,trust:74,overall:66},
+   compatComment:'ひたむきさが魅力だが、年上好み傾向の里菜にはやや年齢差が課題。'},
+  {id:'sakurai',name:'櫻井 将治',age:31,job:'寿司職人/モデル',catch:'#スマイル仕込みな寿司職人',
+   youtube:'https://youtu.be/ru-drY65fDE',
+   detail:'「押して押して押しまくる」と宣言した積極型。寿司職人とモデルの異色二刀流。',
+   compat:{global:48,values:70,appeal:75,trust:72,overall:66},
+   compatComment:'積極アプローチは里菜の受け身タイプに合うがグローバル感覚の差が大きい。'},
+  {id:'mendori',name:'妻鳥 郁也',age:25,job:'IT企業勤務',catch:'#漢気で愛を背負うオトコ',
+   youtube:'https://youtu.be/IZqShuBUYSo',
+   detail:'シーズン最年少25歳。「漢気で愛を背負う」頼もしすぎるコピーを持つが年齢が最大のハンデ。',
+   compat:{global:45,values:68,appeal:72,trust:65,overall:62},
+   compatComment:'里菜の年上好み傾向に真っ向から逆らう最年少。熱意で年齢差を埋められるか。'},
+  {id:'kuraoka',name:'倉岡 利樹',age:27,job:'起業家',catch:'#ロジカルだけで生きるオトコ',
+   youtube:'https://youtu.be/7uc-RP1vTqM',
+   detail:'「ロジカルだけで生きる」27歳起業家。理性的アプローチが持ち味だが里菜の直感型とは対照的。',
+   compat:{global:60,values:65,appeal:72,trust:75,overall:68},
+   compatComment:'ロジカル vs 直感というスタイルの根本的違い。化学反応の可能性はゼロではない。'},
+];
+
+const COLORS = ['#c8727a','#c9a84c','#4c8bc9','#4caf7a','#af4c9a','#9a7a4c','#4cafaf','#e05a6a','#7a9ac9','#c97a4c','#6a7ac9','#c94c7a','#4c9a7a','#9ac94c'];
+
+// ODDS HISTORY [ep0, ep1, ep2, ep3]  null = not yet
+let ODDS_HISTORY = {
+  mizukoshi:[2.2,null,null,null], ueda:[2.8,null,null,null], raimon:[3.5,null,null,null],
+  osada:[4.2,null,null,null], tanaka:[5.0,null,null,null], yamazaki:[5.5,null,null,null],
+  shiratani:[6.5,null,null,null], wada:[6.5,null,null,null], sebawn:[7.0,null,null,null],
+  yoshimoto:[9.0,null,null,null], anzai:[10.0,null,null,null], sakurai:[12.0,null,null,null],
+  mendori:[15.0,null,null,null], kuraoka:[8.0,null,null,null],
+};
+
+// BETTING STATE
+let bState = {
+  players:[], eliminated:[], currentPhase:0, bonusFinalists:[], bonusBets:[],
+};
+
+// ══════════════════════════════════════════ STATE PERSISTENCE
+function saveState(){try{localStorage.setItem('b4_all',JSON.stringify({odds:ODDS_HISTORY,bet:bState}));}catch(e){}}
+function loadState(){try{const s=localStorage.getItem('b4_all');if(s){const d=JSON.parse(s);ODDS_HISTORY=d.odds||ODDS_HISTORY;bState=d.bet||bState;}}catch(e){}}
+
+// ══════════════════════════════════════════ NAVIGATION
+function showPage(id, el){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.top-nav-item').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  el.classList.add('active');
+  if(id==='guide') buildMenList();
+  if(id==='bet') refreshBetAll();
+  if(id==='odds'){buildChart();buildOddsTable();buildManualGrid();}
+}
+function showInner(page, sec, el){
+  const prefix = page+'-';
+  document.querySelectorAll('[id^="'+prefix+'"]').forEach(s=>{if(s.classList.contains('i-section'))s.classList.remove('active');});
+  const tabs = el.closest('.inner-tabs') || el.parentElement;
+  tabs.querySelectorAll('.i-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById(prefix+sec).classList.add('active');
+  el.classList.add('active');
+  if(sec==='ranking') renderRanking();
+  if(sec==='history') renderHistory();
+  if(sec==='table') buildOddsTable();
+  if(sec==='manual') buildManualGrid();
+}
+
+// ══════════════════════════════════════════ GUIDE
+function ytThumb(url){
+  // Extract video ID from youtu.be/xxxxx or youtube.com/watch?v=xxxxx
+  const m = url.match(/(?:youtu\.be\/|v=)([\w-]{11})/);
+  return m ? `https://img.youtube.com/vi/${m[1]}/hqdefault.jpg` : '';
+}
+function buildMenList(){
+  const el=document.getElementById('menListGuide');
+  el.innerHTML=MEN.map((m,i)=>`
+    <div class="man-card" onclick="toggleManDetail('${m.id}')">
+      <div class="man-hdr">
+        <div class="man-num">${i+1}</div>
+        <div style="flex:1;min-width:0;">
+          <div class="man-name">${m.name}</div>
+          <div class="man-meta">${m.age}歳 · ${m.job}</div>
+          <div class="man-catch">${m.catch}</div>
+        </div>
+        <div style="font-family:Jost,sans-serif;font-size:9px;color:var(--muted);align-self:center;flex-shrink:0;margin-left:8px;">＋</div>
+      </div>
+      <!-- YouTube thumbnail -->
+      <a href="${m.youtube}" target="_blank" rel="noopener" onclick="event.stopPropagation()"
+         style="display:block;margin:0 14px 12px;border-radius:2px;overflow:hidden;position:relative;text-decoration:none;">
+        <img src="${ytThumb(m.youtube)}" alt="${m.name} インタビュー"
+             style="width:100%;height:140px;object-fit:cover;object-position:top;display:block;background:#111;"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <!-- fallback -->
+        <div style="display:none;width:100%;height:140px;background:#1a0f0f;align-items:center;justify-content:center;font-family:Jost,sans-serif;font-size:11px;color:rgba(255,255,255,.4);letter-spacing:1px;">
+          サムネイル読み込み中...
+        </div>
+        <!-- play overlay -->
+        <div style="position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;transition:background .2s;">
+          <div style="width:44px;height:44px;background:rgba(255,0,0,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <div style="width:0;height:0;border-top:9px solid transparent;border-bottom:9px solid transparent;border-left:16px solid #fff;margin-left:3px;"></div>
+          </div>
+        </div>
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:6px 10px;background:linear-gradient(transparent,rgba(0,0,0,.7));font-family:Jost,sans-serif;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,.9);">
+          ▶ インタビュー映像を見る
+        </div>
+      </a>
+      <div class="man-detail" id="md-${m.id}">
+        <div class="man-detail-text">${m.detail}</div>
+        <div class="man-detail-text" style="margin-top:8px;font-family:Jost,sans-serif;font-size:10px;letter-spacing:1px;color:var(--muted);">相性スコア (総合: ${m.compat.overall})</div>
+        ${['グローバル感','価値観','魅力','信頼感'].map((l,j)=>{const k=['global','values','appeal','trust'][j];return`
+          <div class="compat-row"><div class="compat-lbl">${l}</div><div class="compat-bar"><div class="compat-fill" style="width:${m.compat[k]}%"></div></div><div class="compat-val">${m.compat[k]}</div></div>`}).join('')}
+        <div class="man-detail-text" style="margin-top:8px;border-left:2px solid var(--gold);padding-left:10px;font-size:12px;">${m.compatComment}</div>
+      </div>
+    </div>`).join('');
+}
+function toggleManDetail(id){
+  const d=document.getElementById('md-'+id);
+  d.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════ BETTING UTILS
+function getActiveMen(){return MEN.filter(m=>!bState.eliminated.includes(m.id));}
+function getManName(id){const m=MEN.find(x=>x.id===id);return m?m.name:id;}
+function toast(msg,dur=2200){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+
+function setPhase(p,el){
+  bState.currentPhase=p;
+  document.querySelectorAll('.phase-btn').forEach(b=>b.classList.remove('active'));
+  el.classList.add('active');
+  const titles=['R1 投票フォーム（配信前）','R2 投票フォーム（EP1–4後）','R3 投票フォーム（EP5–7後）','🎯 ボーナスステージ'];
+  document.getElementById('betRoundTitle').textContent=titles[p]||titles[0];
+  saveState(); refreshBetAll();
+}
+
+// ── PLAYERS
+function addPlayer(){
+  const inp=document.getElementById('playerInput');
+  const name=inp.value.trim();
+  if(!name)return;
+  if(bState.players.find(p=>p.name===name)){toast('同じ名前が既に存在します');return;}
+  bState.players.push({name,coins:INITIAL_COINS,history:[]});
+  inp.value='';saveState();refreshBetAll();toast(`${name} を登録 (${INITIAL_COINS}コイン)`);
+}
+function removePlayer(name){bState.players=bState.players.filter(p=>p.name!==name);saveState();refreshBetAll();}
+function renderPlayerChips(){
+  const el=document.getElementById('playerChips');
+  el.innerHTML=bState.players.length===0
+    ?'<p style="font-family:Jost,sans-serif;font-size:12px;color:var(--muted);">まだ参加者がいません</p>'
+    :bState.players.map(p=>`<span class="player-chip">${p.name} <span style="font-family:Cormorant Garamond,serif;font-size:14px;color:var(--rose-d);margin-left:4px;">${p.coins}</span><span class="del" onclick="removePlayer('${p.name}')">×</span></span>`).join('');
+}
+
+// ── BET FORM
+let selMen=[],betCoins={};
+function refreshBetForm(){
+  selMen=[];betCoins={};renderBetMen();
+  document.getElementById('betSliderArea').style.display='none';
+  const sel=document.getElementById('betPlayerSel').value;
+  document.getElementById('betContent').style.display=sel?'block':'none';
+}
+function renderBetMen(){
+  const grid=document.getElementById('betMenGrid');
+  grid.innerHTML=getActiveMen().map(m=>{
+    const s=selMen.includes(m.id),d=!s&&selMen.length>=3;
+    return`<div class="bet-man-row ${s?'selected':''} ${d?'disabled':''}" onclick="toggleBetMan('${m.id}')">
+      <div class="bet-check">${s?'✓':''}</div>
+      <div><div style="font-size:13px;">${m.name}</div><div style="font-family:Jost,sans-serif;font-size:10px;color:var(--muted);">${m.age}歳</div></div></div>`;
+  }).join('');
+}
+function toggleBetMan(id){
+  if(selMen.includes(id))selMen=selMen.filter(x=>x!==id);
+  else if(selMen.length<3)selMen.push(id);
+  renderBetMen();
+  if(selMen.length===3){initSliders();document.getElementById('betSliderArea').style.display='block';}
+  else document.getElementById('betSliderArea').style.display='none';
+}
+function initSliders(){
+  const pname=document.getElementById('betPlayerSel').value;
+  const player=bState.players.find(p=>p.name===pname);
+  const total=player?player.coins:INITIAL_COINS;
+  const base=Math.floor(total/3);
+  selMen.forEach((id,i)=>{betCoins[id]=i<2?base:total-base*2;});
+  renderSliders(total);
+}
+function renderSliders(total){
+  document.getElementById('betSliders').innerHTML=selMen.map(id=>`
+    <div>
+      <div class="slider-top"><span class="slider-name">${getManName(id)}</span><span class="slider-val" id="sv-${id}">${betCoins[id]}<span>コイン</span></span></div>
+      <input type="range" min="0" max="${total}" value="${betCoins[id]}" id="sl-${id}" oninput="onSlider('${id}',${total})">
+    </div>`).join('');
+  updateCoinsLeft(total);
+}
+function onSlider(changedId,total){
+  const val=parseInt(document.getElementById('sl-'+changedId).value);
+  betCoins[changedId]=val;
+  const others=selMen.filter(x=>x!==changedId);
+  const rem=total-val;
+  const prevTot=others.reduce((s,id)=>s+(betCoins[id]||0),0);
+  if(prevTot>0)others.forEach(id=>{betCoins[id]=Math.round((betCoins[id]/prevTot)*rem);});
+  else{const sh=Math.floor(rem/others.length);others.forEach((id,i)=>{betCoins[id]=i<others.length-1?sh:rem-sh*(others.length-1);});}
+  selMen.forEach(id=>{
+    const sl=document.getElementById('sl-'+id),sv=document.getElementById('sv-'+id);
+    if(sl)sl.value=betCoins[id];if(sv)sv.innerHTML=`${betCoins[id]}<span>コイン</span>`;
+  });
+  updateCoinsLeft(total);
+}
+function updateCoinsLeft(total){
+  const used=Object.values(betCoins).reduce((s,v)=>s+v,0);
+  const left=total-used;
+  document.getElementById('coinsLeft').textContent=left;
+  document.getElementById('coinsRem').style.borderLeftColor=left===0?'var(--up)':'var(--gold)';
+}
+function submitBet(){
+  const pname=document.getElementById('betPlayerSel').value;
+  if(!pname){toast('投票者を選択してください');return;}
+  if(selMen.length<3){toast('3名を選択してください');return;}
+  const player=bState.players.find(p=>p.name===pname);if(!player)return;
+  const total=Object.values(betCoins).reduce((s,v)=>s+v,0);
+  if(total>player.coins){toast('コインが足りません');return;}
+  const round=bState.currentPhase;
+  const existing=player.history.find(h=>h.round===round);
+  if(existing){if(!confirm(`${pname}はR${round+1}に既に投票済みです。上書きしますか？`))return;player.history=player.history.filter(h=>h.round!==round);}
+  player.history.push({round,bets:selMen.map(id=>({id,coins:betCoins[id]||0})),result:'pending',earned:0});
+  saveState();toast(`${pname}の投票を確定！`);selMen=[];betCoins={};renderBetMen();document.getElementById('betSliderArea').style.display='none';refreshBetAll();
+}
+
+// ── RANKING
+function renderRanking(){
+  const sorted=[...bState.players].sort((a,b)=>b.coins-a.coins);
+  const el=document.getElementById('rankingBody');
+  if(!sorted.length){el.innerHTML='<div style="padding:20px;text-align:center;font-family:Jost,sans-serif;font-size:12px;color:var(--muted);">まだ参加者がいません</div>';return;}
+  el.innerHTML=`<div class="rank-row hdr"><div></div><div>名前</div><div style="text-align:right">コイン</div><div style="text-align:right">獲得</div><div style="text-align:right">票数</div></div>`+
+    sorted.map((p,i)=>{
+      const earned=p.history.reduce((s,h)=>s+(h.earned||0),0);
+      return`<div class="rank-row"><div class="rank-num">${i+1}</div><div>${p.name}</div>
+        <div style="font-family:Cormorant Garamond,serif;font-size:17px;text-align:right;color:${p.coins>=INITIAL_COINS?'var(--up)':'var(--down)'}">${p.coins}</div>
+        <div style="font-family:Jost,sans-serif;font-size:11px;text-align:right;color:var(--up)">+${earned}</div>
+        <div style="font-family:Jost,sans-serif;font-size:11px;text-align:right;color:var(--muted)">${p.history.length}</div></div>`;
+    }).join('');
+}
+
+// ── HISTORY
+function renderHistory(){
+  const el=document.getElementById('historyBody');
+  const rows=[];
+  bState.players.forEach(p=>{
+    p.history.forEach(h=>{
+      const rL=['R1','R2','R3','BONUS'][h.round]||`R${h.round+1}`;
+      const b=([0,1,2].map(j=>h.bets[j]?`${getManName(h.bets[j].id)}<br><span style="font-family:Jost,sans-serif;font-size:9px;color:var(--muted);">${h.bets[j].coins}コイン</span>`:'—'));
+      const rb={pending:'<span class="result-badge rb-pending">未確定</span>',win3:'<span class="result-badge rb-win">×1.5</span>',win2:'<span class="result-badge rb-win">×2.0</span>',win1:'<span class="result-badge rb-win">×3.0</span>',lose:'<span class="result-badge rb-lose">×0</span>',bonus_win:'<span class="result-badge rb-win">×3</span>',bonus_lose:'<span class="result-badge rb-lose">外れ</span>'}[h.result]||'<span class="result-badge rb-pending">未確定</span>';
+      rows.push(`<div class="hist-row"><div style="font-size:11px;">${p.name}<br><span style="font-family:Jost,sans-serif;font-size:9px;color:var(--muted);">${rL}</span></div>${b.map(x=>`<div style="font-size:11px;line-height:1.6;">${x}</div>`).join('')}<div>${rb}${h.earned?`<br><span style="font-family:Jost,sans-serif;font-size:9px;color:var(--up);">+${h.earned}</span>`:''}</div></div>`);
+    });
+  });
+  el.innerHTML=rows.length?rows.join(''):'<div style="padding:20px;text-align:center;font-family:Jost,sans-serif;font-size:12px;color:var(--muted);">まだ投票がありません</div>';
+}
+
+// ── ADMIN
+function renderAdminElimGrid(){
+  document.getElementById('adminElimGrid').innerHTML=getActiveMen().map(m=>`
+    <label style="display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--border);cursor:pointer;border-radius:2px;font-size:12px;">
+      <input type="checkbox" value="${m.id}" style="accent-color:var(--rose);"> ${m.name}</label>`).join('');
+  const wsel=document.getElementById('adminWinnerSel');
+  wsel.innerHTML='<option value="">— 選択 —</option>'+getActiveMen().map(m=>`<option value="${m.id}">${m.name}</option>`).join('');
+}
+function calcResults(){
+  const round=parseInt(document.getElementById('adminRoundSel').value);
+  const newElim=[...document.querySelectorAll('#adminElimGrid input:checked')].map(cb=>cb.value);
+  if(!newElim.length){toast('脱落者を選択してください');return;}
+  bState.eliminated.push(...newElim);
+  bState.players.forEach(player=>{
+    const bet=player.history.find(h=>h.round===round&&h.result==='pending');if(!bet)return;
+    const survived=bet.bets.filter(b=>!bState.eliminated.includes(b.id));
+    const mult=MULTIPLIERS[survived.length]??0;
+    const earned=mult>0?survived.reduce((s,b)=>s+Math.round(b.coins*mult),0):0;
+    bet.result=['lose','win1','win2','win3'][survived.length];bet.earned=earned;player.coins+=earned;
+  });
+  saveState();toast(`反映完了！脱落：${newElim.map(getManName).join('、')}`);refreshBetAll();
+}
+function calcBonus(){
+  const wid=document.getElementById('adminWinnerSel').value;if(!wid){toast('優勝者を選択してください');return;}
+  bState.players.forEach(player=>{
+    const bet=player.history.find(h=>h.round===3&&h.result==='pending');if(!bet)return;
+    if(bet.bets[0]?.id===wid){const earned=Math.round((bet.bets[0]?.coins||0)*3);bet.earned=earned;bet.result='bonus_win';player.coins+=earned;}
+    else bet.result='bonus_lose';
+  });
+  saveState();toast(`ボーナス結果反映！優勝：${getManName(wid)}`);refreshBetAll();
+}
+
+// ── BONUS
+let selBonusMan=null;
+function renderBonusSection(){
+  const sel=document.getElementById('bonusPlayerSel');
+  sel.innerHTML='<option value="">— 選択 —</option>'+bState.players.map(p=>`<option value="${p.name}">${p.name}（${p.coins}コイン）</option>`).join('');
+  const finalists=bState.bonusFinalists.length===2?MEN.filter(m=>bState.bonusFinalists.includes(m.id)):getActiveMen().slice(0,2);
+  document.getElementById('bonusMenArea').innerHTML=finalists.map(m=>`<button class="bonus-btn" id="bm_${m.id}" onclick="selBonus('${m.id}')">${m.name}</button>`).join('');
+}
+function selBonus(id){selBonusMan=id;document.querySelectorAll('.bonus-btn').forEach(b=>b.classList.remove('selected'));document.getElementById('bm_'+id)?.classList.add('selected');}
+function submitBonus(){
+  const pname=document.getElementById('bonusPlayerSel').value;
+  if(!pname){toast('投票者を選択');return;}if(!selBonusMan){toast('男性を選択');return;}
+  const player=bState.players.find(p=>p.name===pname);if(!player)return;
+  if(player.history.find(h=>h.round===3)){toast('ボーナスは1人1回のみ');return;}
+  player.coins+=BONUS_COINS;const staked=player.coins;
+  player.history.push({round:3,bets:[{id:selBonusMan,coins:staked}],result:'pending',earned:0});
+  player.coins=0;saveState();toast(`${pname} ボーナス投票確定（${staked}コイン全賭け）`);refreshBetAll();
+}
+
+// ── SELECTS REFRESH
+function refreshSelects(){
+  ['betPlayerSel','bonusPlayerSel'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const cur=el.value;
+    el.innerHTML='<option value="">— 選択してください —</option>'+bState.players.map(p=>`<option value="${p.name}">${p.name}（${p.coins}コイン）</option>`).join('');
+    el.value=cur;
+  });
+}
+// ── EXPORT: ファイルダウンロード（賭けデータのみ）
+function exportBetFile(){
+  const payload={_version:1,_exported:new Date().toISOString(),bet:bState};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=url;a.download=`b4_bet_${new Date().toISOString().slice(0,10)}.json`;a.click();
+  URL.revokeObjectURL(url);toast('📤 JSONファイルをダウンロードしました');
+}
+// ── EXPORT: クリップボード
+function exportBetClipboard(){
+  const payload={_version:1,_exported:new Date().toISOString(),bet:bState};
+  const j=JSON.stringify(payload,null,2);
+  navigator.clipboard.writeText(j).then(()=>toast('📤 クリップボードにコピーしました')).catch(()=>{const ta=document.createElement('textarea');ta.value=j;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('📤 コピーしました');});
+}
+// ── IMPORT: ファイル読み込み
+function importBetFile(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{applyImport(e.target.result);};
+  reader.readAsText(file);event.target.value='';
+}
+// ── IMPORT: テキスト貼り付け
+function importBetPaste(){
+  const text=document.getElementById('importPasteInput').value.trim();
+  if(!text){toast('JSONを貼り付けてください');return;}
+  applyImport(text);
+}
+// ── IMPORT: 共通処理
+function applyImport(jsonText){
+  const resultEl=document.getElementById('importResult');
+  try{
+    const data=JSON.parse(jsonText);
+    const betData=data.bet||data;
+    if(!betData.players||!Array.isArray(betData.players))throw new Error('players データが見つかりません');
+    bState={
+      players:betData.players||[],
+      eliminated:betData.eliminated||[],
+      currentPhase:betData.currentPhase??0,
+      bonusFinalists:betData.bonusFinalists||[],
+      bonusBets:betData.bonusBets||[],
+    };
+    saveState();refreshBetAll();
+    document.querySelectorAll('.phase-btn').forEach((b,i)=>{b.classList.toggle('active',i===bState.currentPhase);});
+    resultEl.style.display='block';resultEl.style.background='#d4f5e4';resultEl.style.color='var(--up)';
+    resultEl.textContent=`✅ 復元完了！ ${bState.players.length}名（${bState.players.map(p=>p.name).join('、')}）のデータを読み込みました`;
+    document.getElementById('importPasteInput').value='';
+    toast(`✅ 賭けデータを復元しました（${bState.players.length}名）`);
+  }catch(e){
+    resultEl.style.display='block';resultEl.style.background='#f5d4d6';resultEl.style.color='var(--down)';
+    resultEl.textContent=`❌ 読み込みエラー: ${e.message}`;toast('❌ JSONの形式が正しくありません');
+  }
+}
+// ── RESET
+function resetAll(){
+  bState={players:[],eliminated:[],currentPhase:0,bonusFinalists:[],bonusBets:[]};
+  saveState();toast('全リセット');refreshBetAll();
+  const r=document.getElementById('importResult');if(r)r.style.display='none';
+}
+function refreshBetAll(){renderPlayerChips();refreshSelects();renderRanking();renderHistory();renderBonusSection();renderAdminElimGrid();}
+
+// ══════════════════════════════════════════ ODDS
+let currentEp=0,hiddenLines=new Set(),chart=null;
+const EP_LABELS=['配信前','EP1–4','EP5–7','EP8–9'];
+const tierMap={champion:'最有力',contender:'有力',dark:'伏兵',watch:'注目',elim:'苦戦'};
+
+function getCurrentOdds(id){const h=ODDS_HISTORY[id];for(let i=currentEp;i>=0;i--)if(h[i]!==null)return h[i];return h[0];}
+function getPrevOdds(id){if(currentEp===0)return null;const h=ODDS_HISTORY[id];for(let i=currentEp-1;i>=0;i--)if(h[i]!==null)return h[i];return null;}
+function getTier(o){if(o>=50)return'elim';if(o<=3)return'champion';if(o<=6)return'contender';if(o<=9)return'dark';return'watch';}
+
+function buildChart(){
+  const ctx=document.getElementById('oddsChart').getContext('2d');
+  const datasets=MEN.map((m,i)=>{
+    const raw=ODDS_HISTORY[m.id];
+    const data=EP_LABELS.map((_,ei)=>{if(ei>currentEp)return null;for(let j=ei;j>=0;j--)if(raw[j]!==null)return raw[j];return null;});
+    return{label:m.name,data,borderColor:COLORS[i],backgroundColor:COLORS[i]+'22',borderWidth:hiddenLines.has(m.id)?0:2,pointRadius:4,pointHoverRadius:6,tension:.3,hidden:hiddenLines.has(m.id)};
+  });
+  if(chart)chart.destroy();
+  chart=new Chart(ctx,{type:'line',data:{labels:EP_LABELS.slice(0,currentEp+1),datasets},options:{responsive:true,maintainAspectRatio:false,scales:{y:{reverse:true,title:{display:true,text:'オッズ（低いほど有力）',font:{family:'Jost',size:10},color:'#8a6a6a'},min:1,max:20,grid:{color:'rgba(200,114,122,.08)'},ticks:{font:{family:'Jost',size:10},color:'#8a6a6a',callback:v=>v+'倍'}},x:{grid:{color:'rgba(200,114,122,.08)'},ticks:{font:{family:'Jost',size:11},color:'#4a2e2e'}}},plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}倍`},bodyFont:{family:'Noto Serif JP',size:12},titleFont:{family:'Jost',size:11}}},interaction:{mode:'index',intersect:false},animation:{duration:600,easing:'easeInOutQuart'}}});
+  buildLegend();
+}
+function buildLegend(){
+  const el=document.getElementById('graphLegend');el.innerHTML='';
+  MEN.forEach((m,i)=>{
+    const item=document.createElement('div');item.className='leg-item'+(hiddenLines.has(m.id)?' hidden':'');
+    item.innerHTML=`<div class="leg-dot" style="background:${COLORS[i]}"></div><span>${m.name.split(' ')[0]}</span>`;
+    item.onclick=()=>{if(hiddenLines.has(m.id))hiddenLines.delete(m.id);else hiddenLines.add(m.id);item.classList.toggle('hidden');buildChart();};
+    el.appendChild(item);
+  });
+}
+function buildOddsTable(){
+  const sorted=[...MEN].sort((a,b)=>getCurrentOdds(a.id)-getCurrentOdds(b.id));
+  const el=document.getElementById('oddsTableBody');
+  el.innerHTML='';
+  sorted.forEach((m,rank)=>{
+    const cur=getCurrentOdds(m.id),prev=getPrevOdds(m.id);
+    const delta=prev!==null?prev-cur:null;
+    let dHTML='<span style="color:var(--muted)">—</span>';
+    if(delta!==null&&Math.abs(delta)>0.05)dHTML=delta>0?`<span class="delta-up">▲${delta.toFixed(1)}</span>`:`<span class="delta-dn">▼${Math.abs(delta).toFixed(1)}</span>`;
+    const tier=getTier(cur);
+    const row=document.createElement('div');row.className='odds-row';
+    row.innerHTML=`<div class="col-rank">${rank+1}</div><div><div class="col-name-main">${m.name}</div><div class="col-name-sub">${m.age}歳 · ${m.job}</div></div><div class="col-odds-v">${cur.toFixed(1)}倍</div><div class="col-prev-v">${prev!==null?prev.toFixed(1)+'倍':'—'}</div><div class="col-delta">${dHTML}</div><div class="col-tier tier-${tier}">${tierMap[tier]}</div>`;
+    const drawer=document.createElement('div');drawer.className='odds-detail-drawer';
+    drawer.innerHTML=`<strong>${m.catch}</strong><br>${m.compatComment}`;
+    row.onclick=()=>{const open=drawer.classList.contains('open');document.querySelectorAll('.odds-detail-drawer').forEach(d=>d.classList.remove('open'));if(!open)drawer.classList.add('open');};
+    el.appendChild(row);el.appendChild(drawer);
+  });
+}
+function selectEp(ep,el){
+  currentEp=ep;
+  document.querySelectorAll('.ep-btn').forEach(b=>b.classList.remove('active'));el.classList.add('active');
+  buildChart();buildOddsTable();buildManualGrid();
+}
+
+// ── MANUAL UPDATE
+function buildManualGrid(){
+  const ep=parseInt(document.getElementById('manualEpSel').value);
+  document.getElementById('manualElimGrid').innerHTML=MEN.map(m=>`
+    <label style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid var(--border);cursor:pointer;border-radius:2px;font-size:12px;">
+      <input type="checkbox" id="me_${m.id}" value="${m.id}" style="accent-color:var(--rose);"> ${m.name}</label>`).join('');
+  document.getElementById('manualOddsGrid').innerHTML=MEN.map(m=>`
+    <div class="mo-row">
+      <div class="mo-name">${m.name}</div>
+      <input class="mo-input" id="mo_${m.id}" type="number" min="1" max="99" step="0.1" placeholder="${getCurrentOdds(m.id).toFixed(1)}">
+      <span class="mo-unit">倍</span>
+    </div>`).join('');
+}
+function applyManualOdds(){
+  const ep=parseInt(document.getElementById('manualEpSel').value);
+  // Set eliminated to 99
+  document.querySelectorAll('#manualElimGrid input:checked').forEach(cb=>{
+    if(ODDS_HISTORY[cb.value])ODDS_HISTORY[cb.value][ep]=99.0;
+    const inp=document.getElementById('mo_'+cb.value);if(inp)inp.value='99';
+  });
+  // Apply typed values
+  MEN.forEach(m=>{
+    const inp=document.getElementById('mo_'+m.id);
+    if(inp&&inp.value!==''){const v=parseFloat(inp.value);if(!isNaN(v)&&v>0)ODDS_HISTORY[m.id][ep]=parseFloat(v.toFixed(1));}
+  });
+  // Update insight
+  const sorted=[...MEN].sort((a,b)=>getCurrentOdds(a.id)-getCurrentOdds(b.id)).slice(0,3);
+  document.getElementById('insightText').innerHTML=`<strong>EP${ep} 更新後：</strong><br><br>`+sorted.map((m,i)=>`<strong>${['最有力','2位','3位'][i]}：${m.name}（${getCurrentOdds(m.id).toFixed(1)}倍）</strong>`).join('<br>');
+  saveState();buildChart();buildOddsTable();
+  selectEp(ep,document.querySelectorAll('.ep-btn')[ep]);
+  toast(`EP${ep} のオッズを更新しました`);
+}
+
+// ── AI UPDATE (disabled in claude.ai sandbox)
+async function doUpdate(){
+  const btn=document.getElementById('updateBtn');
+  const log=document.getElementById('aiLog');
+  btn.classList.add('loading');btn.disabled=true;
+  log.classList.add('visible');log.innerHTML='';
+  function addLog(t){const d=document.createElement('div');d.className='log-line';d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;}
+  addLog('Anthropic APIに接続中...');
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:800,tools:[{type:'web_search_20250305',name:'web_search'}],messages:[{role:'user',content:`バチェロレッテ4 ${EP_LABELS[currentEp]} 脱落者 最新情報を検索し、以下のIDのオッズをJSONで返してください。脱落者は99.0にすること。\nIDs: ${MEN.map(m=>m.id).join(',')}\n形式: {"odds":{"id":数値,...},"summary":"日本語1文"}`}]})});
+    if(!resp.ok)throw new Error(`${resp.status}`);
+    const data=await resp.json();
+    let raw='';for(const b of data.content)if(b.type==='text')raw+=b.text;
+    const jm=raw.match(/\{[\s\S]*\}/);if(!jm)throw new Error('JSONなし');
+    const parsed=JSON.parse(jm[0]);
+    for(const[id,val]of Object.entries(parsed.odds||{}))if(ODDS_HISTORY[id]!==undefined)ODDS_HISTORY[id][currentEp]=parseFloat((+val).toFixed(1));
+    if(parsed.summary)document.getElementById('insightText').innerHTML=`<strong>${EP_LABELS[currentEp]} AI更新</strong><br><br>${parsed.summary}`;
+    saveState();buildChart();buildOddsTable();addLog('✅ 更新完了');document.getElementById('updateStatus').textContent=`更新：${new Date().toLocaleTimeString('ja-JP')}`;
+  }catch(e){addLog(`⚠️ ${e.message} — claude.ai内ではAPIが使えません。手動更新タブをご利用ください。`);}
+  btn.classList.remove('loading');btn.disabled=true;// keep disabled
+}
+
+// ══════════════════════════════════════════ INIT
+loadState();
+buildMenList();
+refreshBetAll();
+// Chart.js already loaded via script tag
+buildChart();
+buildOddsTable();
+buildManualGrid();
+</script>
+</body>
+</html>
